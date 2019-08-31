@@ -18,14 +18,15 @@ print ('Socket bind complete')
  
 #inicia  socket
 s.listen(10)
-print ('Socket now listening')
+print ('Socket now listening \n')
  
 #now conversa con  client
 while 1:
     #esperando conecccion 
     conn, addr = s.accept()
-    #mensaje=conn.recv(1024)
+    mensaje=conn.recv(1024)
     #print(mensaje.decode("utf-8"))
-    print ('Connected with ' + addr[0] + ':' + str(addr[1]))
+    print(mensaje)
+    #print ('Connected with ' + addr[0] + ':' + str(addr[1]))
      
 s.close()
