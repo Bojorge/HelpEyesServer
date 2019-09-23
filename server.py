@@ -2,7 +2,7 @@ import socket
 import sys
  
 #HOST = '172.18.158.3'
-HOST = '192.168.8.100'   
+HOST = '192.168.8.103'   
 PORT = 1234
  
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -41,6 +41,15 @@ while 1:
         
     if ( sensorState == "esp") :
         print ("CUIDADO podria caer de espalda")
+
+    if ( sensorState == "dark") :
+        print ("CUIDADO esta demasiado oscuro")
+
+    if ( sensorState == "black") :
+        print ("ADVERTENCIA esta oscureciendo")
+        
+    if ( sensorState == "light") :
+        print ("ADVERTENCIA hay demasiada luz")
     
     
 
