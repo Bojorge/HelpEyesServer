@@ -31,9 +31,11 @@ client.connect("soldier.cloudmqtt.com", 13129, 60)
 client.loop_start()
 time.sleep(1)
 while True:
-    client.publish("Tutorial","Getting Started with MQTT")
+    client.publish("Test","ON")
     print ("Message Sent")
-    time.sleep(15)
+    time.sleep(4)
+    client.publish("Test","OFF")
+    time.sleep(10)
 
 client.loop_stop()
 client.disconnect()

@@ -1,9 +1,47 @@
 import socket
 import sys
+import time
+import paho.mqtt.client as mqtt
  
 #HOST = '172.18.158.3'
-HOST = '192.168.8.103'   
+HOST = '192.168.8.102'   
 PORT = 1234
+
+###########################################
+# Callback Function on Connection with MQTT Server
+def on_connect( client, userdata, flags, rc):
+    print ("Connected with Code :" +str(rc))
+    # Subscribe Topic from here
+    client.subscribe("sensorArduino/#")
+
+# Callback Function on Receiving the Subscribed Topic/Message
+def on_message( client, userdata, msg):
+    # print the message received from the subscribed topic
+    mensaje=""
+    for i in range(len(str(msg.payload))-1):
+        if (i>1):
+            mensaje+=str(msg.payload)[i]
+            
+    
+    
+    #client.publish(" Advertencia",mensaje)
+    print ("\n"+mensaje+"\n")
+        
+        
+
+
+
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+
+client.username_pw_set("hjnnghph", "tVp3MiDwDeUt")
+client.connect("soldier.cloudmqtt.com", 13129, 60)
+
+# client.loop_forever()
+client.loop_start()
+time.sleep(1)
+###########################################3
  
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print ('Socket created')
@@ -26,37 +64,43 @@ while 1:
     #esperando conecccion 
     conn, addr = s.accept()
     mensaje=conn.recv(1024)
-    #print(mensaje.decode("utf-8"))
 
-    sensorState = mensaje.decode("utf-8")
+    sensorApp = mensaje.decode("utf-8")
 
-    if ( sensorState == "incL") :
-        print ("Inclinacion hacia la izquierda")
-        
-    if ( sensorState == "incR") :
-        print ("Inclinacion hacia la derecha")
-        
-    if ( sensorState == "frte") :
-        print ("CUIDADO podria caer de frente")
-        
-    if ( sensorState == "esp") :
-        print ("CUIDADO podria caer de espalda")
+    #conn.send(bytes("Se ha conectado exitosamente al servidor","utf-8"))
 
-    if ( sensorState == "dark") :
-        print ("CUIDADO esta demasiado oscuro")
+    #client.subscribe("sensorArduino/#")
 
-    if ( sensorState == "black") :
-        print ("ADVERTENCIA esta oscureciendo")
+    if ( sensorApp == "incL") :
+        client.publish(" Advertencia","incL")
+        print ("\nInclinacion hacia la izquierda \n")
         
-    if ( sensorState == "light") :
-        print ("ADVERTENCIA hay demasiada luz")
+    if ( sensorApp == "incR") :
+        client.publish("Advertencia","incR")
+        print (" \nInclinacion hacia la derecha \n")
+        
+    if ( sensorApp == "frte") :
+        client.publish("Advertencia","frte")
+        print (" \nCUIDADO podria caer de frente \n")
+        
+    if ( sensorApp == "esp") :
+        client.publish("Advertencia","esp")
+        print (" \nCUIDADO podria caer de espalda \n")
+
+    if ( sensorApp == "dark") :
+        client.publish("Advertencia","dark")
+        print (" \nCUIDADO esta demasiado oscuro \n")
+
+    if ( sensorApp == "black") :
+        client.publish("Advertencia","black")
+        print (" \nADVERTENCIA esta oscureciendo \n")
+        
+    if ( sensorApp == "light") :
+        client.publish("Advertencia","light")
+        print (" \nADVERTENCIA hay demasiada luz \n")
     
-    
-
-    #print(sensorState)
-
-    #print ('Connected with ' + addr[0] + ':' + str(addr[1]))
-    conn.send(bytes("Se ha conectado exitosamente al servidor","utf-8"))
-    
+    #time.sleep(1)
      
 s.close()
+client.loop_stop()
+client.disconnect()
