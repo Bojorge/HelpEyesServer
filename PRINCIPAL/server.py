@@ -4,7 +4,7 @@ import time
 import paho.mqtt.client as mqtt
  
 #HOST = '172.18.158.3'
-HOST = '192.168.8.105'   
+HOST = '192.168.8.102'   
 PORT = 1234
 
 ###########################################
