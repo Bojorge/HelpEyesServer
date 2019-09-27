@@ -29,21 +29,21 @@ def on_message( client, userdata, msg):
 
     
    
-    if (mensaje=="hot"):
+    if (mensaje=="h"):
       print ("temperatura superior a 30º C")
-      client.publish("Advertencia","hot")
+      client.publish("Advertencia","h")
       
-    if (mensaje=="cold"):
+    if (mensaje=="c"):
       print ("temperatura normal")
-      client.publish("Advertencia","cold")
+      client.publish("Advertencia","c")
       
-    if (mensaje=="beat"):
+    if (mensaje=="x"):
       print ("PELIGRO DE CHOQUE CONTRA ALGÙN OBJETO")
-      client.publish("Advertencia","beat")
+      client.publish("Advertencia","x")
       
-    if (mensaje=="warn"):
+    if (mensaje=="p"):
       print ("PELIGRO hay un obstaculo a menos de un metro")
-      client.publish("Advertencia","warm") 
+      client.publish("Advertencia","p") 
 
 
 
@@ -87,32 +87,32 @@ while 1:
 
     #client.subscribe("sensorArduino/#")
 
-    if ( sensorApp == "incL") :
-        client.publish(" Advertencia","incL")
+    if ( sensorApp == "L") :
+        client.publish(" Advertencia","L")
         print ("\nInclinacion hacia la izquierda \n")
         
-    if ( sensorApp == "incR") :
-        client.publish("Advertencia","incR")
+    if ( sensorApp == "R") :
+        client.publish("Advertencia","R")
         print (" \nInclinacion hacia la derecha \n")
         
-    if ( sensorApp == "frte") :
-        client.publish("Advertencia","frte")
+    if ( sensorApp == "f") :
+        client.publish("Advertencia","f")
         print (" \nCUIDADO podria caer de frente \n")
         
-    if ( sensorApp == "esp") :
-        client.publish("Advertencia","esp")
+    if ( sensorApp == "e") :
+        client.publish("Advertencia","e")
         print (" \nCUIDADO podria caer de espalda \n")
 
-    if ( sensorApp == "dark") :
-        client.publish("Advertencia","dark")
+    if ( sensorApp == "d") :
+        client.publish("Advertencia","d")
         print (" \nCUIDADO esta demasiado oscuro \n")
 
-    if ( sensorApp == "black") :
-        client.publish("Advertencia","black")
+    if ( sensorApp == "b") :
+        client.publish("Advertencia","b")
         print (" \nADVERTENCIA esta oscureciendo \n")
         
-    if ( sensorApp == "light") :
-        client.publish("Advertencia","light")
+    if ( sensorApp == "l") :
+        client.publish("Advertencia","l")
         print (" \nADVERTENCIA hay demasiada luz \n")
     
     #time.sleep(1)
