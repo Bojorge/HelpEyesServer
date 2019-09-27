@@ -4,7 +4,7 @@ import time
 import paho.mqtt.client as mqtt
  
 #HOST = '172.18.158.3'
-HOST = '192.168.8.102'   
+HOST = '192.168.8.105'   
 PORT = 1234
 
 ###########################################
@@ -26,8 +26,24 @@ def on_message( client, userdata, msg):
     
     #client.publish(" Advertencia",mensaje)
     print ("\n"+mensaje+"\n")
-        
-        
+
+    
+   
+    if (mensaje=="hot"):
+      print ("temperatura superior a 30º C")
+      client.publish("Advertencia","hot")
+      
+    if (mensaje=="cold"):
+      print ("temperatura normal")
+      client.publish("Advertencia","cold")
+      
+    if (mensaje=="beat"):
+      print ("PELIGRO DE CHOQUE CONTRA ALGÙN OBJETO")
+      client.publish("Advertencia","beat")
+      
+    if (mensaje=="warn"):
+      print ("PELIGRO hay un obstaculo a menos de un metro")
+      client.publish("Advertencia","warm") 
 
 
 
