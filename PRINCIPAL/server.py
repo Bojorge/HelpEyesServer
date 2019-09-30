@@ -4,7 +4,7 @@ import time
 import paho.mqtt.client as mqtt
  
 #HOST = '172.18.158.3'
-HOST = '192.168.8.102'   
+HOST = '192.168.8.106'   
 PORT = 1234
 
 ###########################################
@@ -114,6 +114,12 @@ while 1:
     if ( sensorApp == "l") :
         client.publish("Advertencia","l")
         print (" \nADVERTENCIA hay demasiada luz \n")
+
+    if ( sensorApp != "l" and sensorApp != "b" and sensorApp != "d" and sensorApp != "e" and sensorApp != "f" and sensorApp != "R" and sensorApp != "L") :
+        #client.publish("Advertencia","r")
+        print ("\n pasos :")
+        print (sensorApp)
+        print ("\n")
     
     #time.sleep(1)
      
