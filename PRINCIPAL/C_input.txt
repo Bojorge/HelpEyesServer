@@ -1,0 +1,25 @@
+//test1-este programa es de prueba para el compilador
+
+import SemanticAnalisis;
+import LexicAnalisis;
+
+declare pasos;
+
+procedure test(count)
+    begin
+        for 5 loops
+            count=call inc(count,2);
+            call print(count);
+        end;
+    end;
+
+procedure main()
+    begin
+        call test(pasos);
+    end;
+
+
+
+
+
+

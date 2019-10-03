@@ -4,9 +4,22 @@ import time
 import paho.mqtt.client as mqtt
  
 #HOST = '172.18.158.3'
-HOST = '192.168.8.106'   
+HOST = '192.168.8.104'   
 PORT = 1234
 
+def publish(AlertLevel,pasos):
+    print ("Nivel de alerta :"+str(AlertLevel))
+    print ("Cantidad de pasos :"+str(pasos))
+    alerta=str(AlertLevel)
+    for i in range(pasos):
+        time.sleep(1)
+        print (i+1)
+    
+    
+    client.publish("Advertencia",alerta)
+    print (" ALERTA ")
+    
+    
 ###########################################
 # Callback Function on Connection with MQTT Server
 def on_connect( client, userdata, flags, rc):
@@ -29,21 +42,24 @@ def on_message( client, userdata, msg):
 
     
    
-    if (mensaje=="h"):
-      print ("temperatura superior a 30º C")
-      client.publish("Advertencia","h")
+    if (mensaje=="3"):
+      #print ("temperatura superior a 30º C")
+      print ("PELIGRO TIPO 3")
+      client.publish("Advertencia","3")
       
     if (mensaje=="c"):
       print ("temperatura normal")
       client.publish("Advertencia","c")
       
-    if (mensaje=="x"):
-      print ("PELIGRO DE CHOQUE CONTRA ALGÙN OBJETO")
-      client.publish("Advertencia","x")
+    if (mensaje=="3"):
+      #print ("PELIGRO DE CHOQUE CONTRA ALGÙN OBJETO")
+      print ("PELIGRO TIPO 3")
+      client.publish("Advertencia","3")
       
-    if (mensaje=="p"):
-      print ("PELIGRO hay un obstaculo a menos de un metro")
-      client.publish("Advertencia","p") 
+    if (mensaje=="2"):
+      #print ("PELIGRO hay un obstaculo a menos de un metro")
+      print ("PELIGRO TIPO 2")
+      client.publish("Advertencia","2") 
 
 
 
@@ -88,23 +104,23 @@ while 1:
     #client.subscribe("sensorArduino/#")
 
     if ( sensorApp == "L") :
-        client.publish(" Advertencia","L")
+        client.publish(" Advertencia","1")
         print ("\nInclinacion hacia la izquierda \n")
         
     if ( sensorApp == "R") :
-        client.publish("Advertencia","R")
+        client.publish("Advertencia","1")
         print (" \nInclinacion hacia la derecha \n")
         
     if ( sensorApp == "f") :
-        client.publish("Advertencia","f")
+        client.publish("Advertencia","2")
         print (" \nCUIDADO podria caer de frente \n")
         
     if ( sensorApp == "e") :
-        client.publish("Advertencia","e")
+        client.publish("Advertencia","2")
         print (" \nCUIDADO podria caer de espalda \n")
 
     if ( sensorApp == "d") :
-        client.publish("Advertencia","d")
+        client.publish("Advertencia","2")
         print (" \nCUIDADO esta demasiado oscuro \n")
 
     if ( sensorApp == "b") :
@@ -112,14 +128,18 @@ while 1:
         print (" \nADVERTENCIA esta oscureciendo \n")
         
     if ( sensorApp == "l") :
-        client.publish("Advertencia","l")
+        client.publish("Advertencia","3")
         print (" \nADVERTENCIA hay demasiada luz \n")
 
-    if ( sensorApp != "l" and sensorApp != "b" and sensorApp != "d" and sensorApp != "e" and sensorApp != "f" and sensorApp != "R" and sensorApp != "L") :
+    if ( sensorApp != "1" and sensorApp != "2" and sensorApp != "3") :
         #client.publish("Advertencia","r")
         print ("\n pasos :")
         print (sensorApp)
         print ("\n")
+        
+    if(sensorApp == "w"):
+        publish(3,7)
+        
     
     #time.sleep(1)
      
